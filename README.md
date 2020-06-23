@@ -10,7 +10,7 @@ Endpoints :
   - Authors :
     - localhost:8080/v1/author
     - localhost:8080/v1/author/{authorUuid}
-  Books :   
+  - Books :   
     - localhost:8080/v1/book
     - localhost:8080/v1/book/{bookUuid}
     - localhost:8080/v1/book/author/{authorUuid}
