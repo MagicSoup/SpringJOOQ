@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:h2:~/author
+    username: sa
+    password:
+  jooq:
+    sql-dialect: h2
