@@ -5,7 +5,7 @@ Using :
 - Spring Boot 2.3
 - Google AutoValue 1.7
 - JOOQ 3.13
-
+- Flyway 6.4
 Endpoints :
   - Authors :
     - localhost:8080/v1/author
