@@ -1,6 +1,6 @@
 package ch.qiminfo.demo.das;
 
-import ch.qiminfo.das.db.public_.tables.records.AuthorRecord;
+import ch.qiminfo.das.db.tables.records.AuthorRecord;
 import ch.qiminfo.demo.bean.AuthorBean;
 import ch.qiminfo.demo.mapper.AuthorMapper;
 import org.jooq.DSLContext;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static ch.qiminfo.das.db.public_.tables.Author.AUTHOR;
+import static ch.qiminfo.das.db.tables.Author.AUTHOR;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 @Repository

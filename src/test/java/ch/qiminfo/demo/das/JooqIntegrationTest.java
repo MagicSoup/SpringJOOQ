@@ -13,9 +13,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.UUID;
 
-import static ch.qiminfo.das.db.public_.tables.Author.AUTHOR;
-import static ch.qiminfo.das.db.public_.tables.AuthorBook.AUTHOR_BOOK;
-import static ch.qiminfo.das.db.public_.tables.Book.BOOK;
+import static ch.qiminfo.das.db.tables.Author.AUTHOR;
+import static ch.qiminfo.das.db.tables.AuthorBook.AUTHOR_BOOK;
+import static ch.qiminfo.das.db.tables.Book.BOOK;
 import static org.junit.Assert.assertEquals;
 
 @JooqTest
@@ -54,7 +54,7 @@ public class JooqIntegrationTest {
         final Result<Record3<String, String, Integer>> result = dsl.select(AUTHOR.UUID, AUTHOR.LAST_NAME, DSL.count())
                 .from(AUTHOR).join(AUTHOR_BOOK).on(AUTHOR.UUID.equal(AUTHOR_BOOK.AUTHOR_UUID))
                 .join(BOOK).on(AUTHOR_BOOK.BOOK_UUID.equal(BOOK.UUID))
-                .groupBy(AUTHOR.LAST_NAME)
+                .groupBy(AUTHOR.UUID, AUTHOR.LAST_NAME)
                 .orderBy(AUTHOR.LAST_NAME.desc())
                 .fetch();
 

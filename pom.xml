@@ -69,9 +69,13 @@
 
         <!-- Database Access -->
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>${h2.version}</version>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
         </dependency>
 
         <!-- Test -->
@@ -96,10 +100,34 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+            <!--scope>test</scope-->
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>read-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <files>
+                                <file>src/main/resources/jooq/config.properties</file>
+                            </files>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -134,25 +162,7 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>properties-maven-plugin</artifactId>
-                <version>1.0.0</version>
-                <executions>
-                    <execution>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>read-project-properties</goal>
-                        </goals>
-                        <configuration>
-                            <files>
-                                <file>src/main/resources/jooq/config.properties</file>
-                            </files>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
+            <!--plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>sql-maven-plugin</artifactId>
                 <version>1.5</version>
@@ -175,12 +185,12 @@
                 </executions>
                 <dependencies>
                     <dependency>
-                        <groupId>com.h2database</groupId>
-                        <artifactId>h2</artifactId>
-                        <version>${h2.version}</version>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>${mysql.version}</version>
                     </dependency>
                 </dependencies>
-            </plugin>
+            </plugin-->
 
             <plugin>
                 <groupId>org.jooq</groupId>
@@ -205,7 +215,19 @@
                                     <packageName>ch.qiminfo.das.db</packageName>
                                 </target>
                                 <database>
-                                    <inputCatalog></inputCatalog>
+                                    <!-- The database schema (or in the absence of schema support, in your RDBMS this
+      can be the owner, user, database name) to be generated -->
+                                    <inputSchema>${db.schema}</inputSchema>
+
+                                    <!-- All elements that are generated from your schema
+                                         (A Java regular expression. Use the pipe to separate several expressions)
+                                         Watch out for case-sensitivity. Depending on your database, this might be important! -->
+                                    <includes>.*</includes>
+
+                                    <!-- All elements that are excluded from your schema
+                                         (A Java regular expression. Use the pipe to separate several expressions).
+                                         Excludes match before includes, i.e. excludes have a higher priority -->
+                                    <excludes></excludes>
                                 </database>
                             </generator>
                         </configuration>

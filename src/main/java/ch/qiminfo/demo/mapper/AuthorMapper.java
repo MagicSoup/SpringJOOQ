@@ -1,6 +1,6 @@
 package ch.qiminfo.demo.mapper;
 
-import ch.qiminfo.das.db.public_.tables.records.AuthorRecord;
+import ch.qiminfo.das.db.tables.records.AuthorRecord;
 import ch.qiminfo.demo.bean.AuthorBean;
 import org.springframework.stereotype.Component;
 

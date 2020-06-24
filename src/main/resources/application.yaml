@@ -1,7 +1,11 @@
 spring:
   datasource:
-    url: jdbc:h2:~/author
-    username: sa
-    password:
+    url: jdbc:mysql://localhost:3306/librairy
+    username: librairy_user
+    password: password
   jooq:
-    sql-dialect: h2
+    sql-dialect: mysql
+  flyway:
+    url: jdbc:mysql://localhost:3306/librairy
+    user: librairy_deploy_user
+    password: password

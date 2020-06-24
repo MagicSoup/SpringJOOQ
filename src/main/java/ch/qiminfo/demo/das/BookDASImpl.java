@@ -1,7 +1,7 @@
 package ch.qiminfo.demo.das;
 
-import ch.qiminfo.das.db.public_.tables.records.AuthorRecord;
-import ch.qiminfo.das.db.public_.tables.records.BookRecord;
+import ch.qiminfo.das.db.tables.records.AuthorRecord;
+import ch.qiminfo.das.db.tables.records.BookRecord;
 import ch.qiminfo.demo.bean.BookBean;
 import ch.qiminfo.demo.das.request.BookRequest;
 import ch.qiminfo.demo.mapper.BookMapper;
@@ -16,9 +16,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static ch.qiminfo.das.db.public_.tables.Author.AUTHOR;
-import static ch.qiminfo.das.db.public_.tables.AuthorBook.AUTHOR_BOOK;
-import static ch.qiminfo.das.db.public_.tables.Book.BOOK;
+import static ch.qiminfo.das.db.tables.Author.AUTHOR;
+import static ch.qiminfo.das.db.tables.AuthorBook.AUTHOR_BOOK;
+import static ch.qiminfo.das.db.tables.Book.BOOK;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 @Repository

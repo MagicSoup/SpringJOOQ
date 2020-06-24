@@ -1,7 +1,7 @@
 package ch.qiminfo.demo.mapper;
 
-import ch.qiminfo.das.db.public_.tables.records.AuthorRecord;
-import ch.qiminfo.das.db.public_.tables.records.BookRecord;
+import ch.qiminfo.das.db.tables.records.AuthorRecord;
+import ch.qiminfo.das.db.tables.records.BookRecord;
 import ch.qiminfo.demo.bean.AuthorBean;
 import ch.qiminfo.demo.bean.BookBean;
 import com.google.common.collect.Lists;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ch.qiminfo.das.db.public_.tables.Author.AUTHOR;
+import static ch.qiminfo.das.db.tables.Author.AUTHOR;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 @Component
