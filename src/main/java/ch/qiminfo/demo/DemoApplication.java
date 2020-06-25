@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import static org.springframework.boot.SpringApplication.run;
 
-@SpringBootApplication(scanBasePackages = "ch.qiminfo.demo")
+@SpringBootApplication
 @EnableTransactionManagement
 public class DemoApplication {
 
