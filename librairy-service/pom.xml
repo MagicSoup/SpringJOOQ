@@ -11,7 +11,7 @@
     <groupId>ch.qiminfo.librairy</groupId>
     <artifactId>librairy-service</artifactId>
     <packaging>jar</packaging>
-    <name>Librairy :: DAS</name>
+    <name>Librairy :: Service</name>
 
     <dependencies>
 

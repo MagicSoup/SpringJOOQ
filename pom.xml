@@ -18,6 +18,7 @@
     <modules>
         <module>librairy-daemon</module>
         <module>librairy-service</module>
+        <module>librairy-batch</module>
     </modules>
 
     <properties>
