@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>ch.qiminfo.librairy</groupId>
+        <artifactId>librairy-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <groupId>ch.qiminfo</groupId>
+    <artifactId>librairy-daemon</artifactId>
+    <packaging>jar</packaging>
+    <name>Librairy :: Daemon</name>
+    <description>Librairy daemon module</description>
+
+    <dependencies>
+        <!-- internal -->
+        <dependency>
+            <groupId>ch.qiminfo.librairy</groupId>
+            <artifactId>librairy-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- spring-boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <classifier>standalone</classifier>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
