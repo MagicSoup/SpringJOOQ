@@ -62,7 +62,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.h2.database</groupId>
+            <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
@@ -72,6 +72,7 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <annotationProcessorPaths>
@@ -102,64 +103,57 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>properties-maven-plugin</artifactId>
-                <version>1.0.0</version>
-                <executions>
-                    <execution>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>read-project-properties</goal>
-                        </goals>
-                        <configuration>
-                            <files>
-                                <file>src/main/resources/jooq/config.properties</file>
-                            </files>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq-codegen-maven</artifactId>
                 <version>${jooq.version}</version>
                 <executions>
                     <execution>
+                        <id>generate-jooq-sources</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <jdbc>
-                                <driver>${db.driver}</driver>
-                                <url>${db.url}</url>
-                                <user>${db.username}</user>
-                                <password>${db.password}</password>
-                            </jdbc>
                             <generator>
+                                <generate>
+                                    <pojos>true</pojos>
+                                    <daos>true</daos>
+                                    <pojosEqualsAndHashCode>true</pojosEqualsAndHashCode>
+                                    <javaTimeTypes>true</javaTimeTypes>
+                                </generate>
+                                <database>
+                                    <name>org.jooq.meta.extensions.ddl.DDLDatabase</name>
+                                    <inputCatalog></inputCatalog>
+                                    <inputSchema>PUBLIC</inputSchema>
+                                    <outputSchemaToDefault>true</outputSchemaToDefault>
+                                    <outputCatalogToDefault>true</outputCatalogToDefault>
+                                    <properties>
+                                        <property>
+                                            <key>sort</key>
+                                            <value>semantic</value>
+                                        </property>
+                                        <property>
+                                            <key>scripts</key>
+                                            <value>src/main/resources/db/migration/*</value>
+                                        </property>
+                                    </properties>
+                                </database>
                                 <target>
+                                    <clean>true</clean>
                                     <directory>target/generated-sources/jooq</directory>
                                     <packageName>ch.qiminfo.librairy.db</packageName>
                                 </target>
-                                <database>
-                                    <!-- The database schema (or in the absence of schema support, in your RDBMS this
-      can be the owner, user, database name) to be generated -->
-                                    <inputSchema>${db.schema}</inputSchema>
-
-                                    <!-- All elements that are generated from your schema
-                                         (A Java regular expression. Use the pipe to separate several expressions)
-                                         Watch out for case-sensitivity. Depending on your database, this might be important! -->
-                                    <includes>.*</includes>
-
-                                    <!-- All elements that are excluded from your schema
-                                         (A Java regular expression. Use the pipe to separate several expressions).
-                                         Excludes match before includes, i.e. excludes have a higher priority -->
-                                    <excludes></excludes>
-                                </database>
                             </generator>
                         </configuration>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jooq</groupId>
+                        <artifactId>jooq-meta-extensions</artifactId>
+                        <version>${jooq.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

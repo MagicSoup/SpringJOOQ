@@ -58,6 +58,13 @@
                 <version>${jooq.version}</version>
             </dependency>
 
+            <!-- Database -->
+            <dependency>
+                <groupId>com.h2.database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.version}</version>
+            </dependency>
+
         </dependencies>
 
     </dependencyManagement>
