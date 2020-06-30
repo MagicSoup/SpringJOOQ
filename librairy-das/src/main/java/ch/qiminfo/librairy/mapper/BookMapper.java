@@ -1,9 +1,9 @@
 package ch.qiminfo.librairy.mapper;
 
-import ch.qiminfo.librairy.db.tables.records.AuthorRecord;
-import ch.qiminfo.librairy.db.tables.records.BookRecord;
 import ch.qiminfo.librairy.bean.AuthorBean;
 import ch.qiminfo.librairy.bean.BookBean;
+import ch.qiminfo.librairy.db.tables.records.AuthorRecord;
+import ch.qiminfo.librairy.db.tables.records.BookRecord;
 import com.google.common.collect.Lists;
 import org.jooq.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static ch.qiminfo.librairy.db.tables.Author.AUTHOR;
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 @Component
 public class BookMapper {
@@ -22,7 +22,7 @@ public class BookMapper {
 
     @Autowired
     public BookMapper(AuthorMapper authorMapper) {
-        this.authorMapper = checkNotNull(authorMapper);
+        this.authorMapper = requireNonNull(authorMapper);
     }
 
     public BookBean map(BookRecord record) {

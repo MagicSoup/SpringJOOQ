@@ -1,7 +1,7 @@
 package ch.qiminfo.librairy.das;
 
-import ch.qiminfo.librairy.db.tables.records.AuthorRecord;
 import ch.qiminfo.librairy.bean.AuthorBean;
+import ch.qiminfo.librairy.db.tables.records.AuthorRecord;
 import ch.qiminfo.librairy.mapper.AuthorMapper;
 import org.jooq.DSLContext;
 import org.jooq.Result;
@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static ch.qiminfo.librairy.db.tables.Author.AUTHOR;
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 @Repository
 public class AuthorDASImpl implements AuthorDAS {
@@ -24,8 +24,8 @@ public class AuthorDASImpl implements AuthorDAS {
 
     @Autowired
     public AuthorDASImpl(DSLContext dsl, AuthorMapper authorMapper) {
-        this.dsl = checkNotNull(dsl);
-        this.authorMapper = checkNotNull(authorMapper);
+        this.dsl = requireNonNull(dsl);
+        this.authorMapper = requireNonNull(authorMapper);
     }
 
     @Override

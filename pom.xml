@@ -17,6 +17,7 @@
 
     <modules>
         <module>librairy-daemon</module>
+        <module>librairy-das</module>
     </modules>
 
     <properties>

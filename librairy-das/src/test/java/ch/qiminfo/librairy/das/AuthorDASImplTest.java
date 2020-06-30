@@ -1,6 +1,7 @@
 package ch.qiminfo.librairy.das;
 
 import ch.qiminfo.librairy.bean.AuthorBean;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,6 @@ public class AuthorDASImplTest {
     @Test
     public void get_all_authors() {
         List<AuthorBean> authors = this.authorDAS.getAll();
-        assertThat(authors).hasSize(3);
+        Assertions.assertThat(authors).hasSize(3);
     }
 }
