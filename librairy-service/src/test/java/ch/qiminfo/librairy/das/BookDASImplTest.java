@@ -2,6 +2,7 @@ package ch.qiminfo.librairy.das;
 
 import ch.qiminfo.librairy.bean.BookBean;
 import ch.qiminfo.librairy.das.request.BookRequest;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,12 +42,12 @@ public class BookDASImplTest {
     @Test
     public void search_without_filter() {
         List<BookBean> books = this.bookDAS.search(BookRequest.builder().build());
-        assertThat(books).hasSize(3);
+        Assertions.assertThat(books).hasSize(3);
     }
 
     @Test
     public void search_by_author_uuid() {
         List<BookBean> books = this.bookDAS.search(BookRequest.builder().authorUuid(BOOK_AUTHOR_BERT_BATES_UUID).build());
-        assertThat(books).hasSize(1);
+        Assertions.assertThat(books).hasSize(1);
     }
 }

@@ -1,9 +1,9 @@
 package ch.qiminfo.librairy.das;
 
-import ch.qiminfo.librairy.db.tables.records.AuthorRecord;
-import ch.qiminfo.librairy.db.tables.records.BookRecord;
 import ch.qiminfo.librairy.bean.BookBean;
 import ch.qiminfo.librairy.das.request.BookRequest;
+import ch.qiminfo.librairy.db.tables.records.AuthorRecord;
+import ch.qiminfo.librairy.db.tables.records.BookRecord;
 import ch.qiminfo.librairy.mapper.BookMapper;
 import org.jooq.Record;
 import org.jooq.*;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 import static ch.qiminfo.librairy.db.tables.Author.AUTHOR;
 import static ch.qiminfo.librairy.db.tables.AuthorBook.AUTHOR_BOOK;
 import static ch.qiminfo.librairy.db.tables.Book.BOOK;
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 @Repository
 public class BookDASImpl implements BookDAS {
@@ -30,8 +30,8 @@ public class BookDASImpl implements BookDAS {
 
     @Autowired
     public BookDASImpl(DSLContext dsl, BookMapper bookMapper) {
-        this.dsl = checkNotNull(dsl);
-        this.bookMapper = checkNotNull(bookMapper);
+        this.dsl = requireNonNull(dsl);
+        this.bookMapper = requireNonNull(bookMapper);
     }
 
     @Override

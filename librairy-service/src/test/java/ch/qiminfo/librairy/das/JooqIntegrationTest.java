@@ -4,6 +4,7 @@ import org.jooq.DSLContext;
 import org.jooq.Record3;
 import org.jooq.Result;
 import org.jooq.impl.DSL;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import java.util.UUID;
 import static ch.qiminfo.librairy.db.tables.Author.AUTHOR;
 import static ch.qiminfo.librairy.db.tables.AuthorBook.AUTHOR_BOOK;
 import static ch.qiminfo.librairy.db.tables.Book.BOOK;
-import static org.junit.Assert.assertEquals;
 
 @JooqTest
 @RunWith(SpringRunner.class)
@@ -58,11 +58,11 @@ public class JooqIntegrationTest {
                 .orderBy(AUTHOR.LAST_NAME.desc())
                 .fetch();
 
-        assertEquals(3, result.size());
-        assertEquals("Sierra", result.getValue(0, AUTHOR.LAST_NAME));
-        assertEquals(Integer.valueOf(2), result.getValue(0, DSL.count()));
-        assertEquals("Bates", result.getValue(2, AUTHOR.LAST_NAME));
-        assertEquals(Integer.valueOf(1), result.getValue(2, DSL.count()));
+        Assert.assertEquals(3, result.size());
+        Assert.assertEquals("Sierra", result.getValue(0, AUTHOR.LAST_NAME));
+        Assert.assertEquals(Integer.valueOf(2), result.getValue(0, DSL.count()));
+        Assert.assertEquals("Bates", result.getValue(2, AUTHOR.LAST_NAME));
+        Assert.assertEquals(Integer.valueOf(1), result.getValue(2, DSL.count()));
     }
 
     @Test(expected = DataAccessException.class)
@@ -99,10 +99,10 @@ public class JooqIntegrationTest {
                 .where(AUTHOR.UUID.equal(AUTHOR_BRYAN_BASHAM_UUID))
                 .fetch();
 
-        assertEquals(1, result.size());
-        assertEquals(AUTHOR_BRYAN_BASHAM_UUID, result.getValue(0, AUTHOR.UUID));
-        assertEquals("Baeldung", result.getValue(0, AUTHOR.LAST_NAME));
-        assertEquals("Building your REST API with Spring", result.getValue(0, BOOK.TITLE));
+        Assert.assertEquals(1, result.size());
+        Assert.assertEquals(AUTHOR_BRYAN_BASHAM_UUID, result.getValue(0, AUTHOR.UUID));
+        Assert.assertEquals("Baeldung", result.getValue(0, AUTHOR.LAST_NAME));
+        Assert.assertEquals("Building your REST API with Spring", result.getValue(0, BOOK.TITLE));
     }
 
     @Test
@@ -114,7 +114,7 @@ public class JooqIntegrationTest {
         final Result<Record3<String, String, String>> result = dsl.select(AUTHOR.UUID, AUTHOR.FIRST_NAME, AUTHOR.LAST_NAME)
                 .from(AUTHOR).fetch();
 
-        assertEquals(2, result.size());
+        Assert.assertEquals(2, result.size());
     }
 
     @Test(expected = DataAccessException.class)

@@ -9,66 +9,23 @@
     </parent>
     <groupId>ch.qiminfo</groupId>
     <artifactId>librairy-daemon</artifactId>
+    <packaging>jar</packaging>
     <name>Librairy :: Daemon</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Librairy daemon module</description>
 
     <dependencies>
+        <!-- internal -->
+        <dependency>
+            <groupId>ch.qiminfo.librairy</groupId>
+            <artifactId>librairy-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- spring-boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-rest</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jooq</artifactId>
-        </dependency>
-
-        <!-- auto-value -->
-        <dependency>
-            <groupId>com.google.auto.value</groupId>
-            <artifactId>auto-value-annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-        </dependency>
-
-        <!-- guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-
-        <!-- jOOQ -->
-        <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq</artifactId>
-        </dependency>
-
-        <!-- Database Access -->
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -76,108 +33,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>com.google.auto.value</groupId>
-                            <artifactId>auto-value</artifactId>
-                            <version>${auto-value.version}</version>
-                        </path>
-                        <!--
-                        Manually pull in auto-service-annotations so that it is part of the
-                        processor path because auto-value has it set to provided scope.
-                        This dependency is needed due to the retention change in
-                        https://github.com/google/auto/commit/628df548685b4fc0f2a9af856f97cc2a68da246b
-                        where the RetentionPolicy changed from SOURCE to CLASS.
-                        Due to the RetentionPolicy change to CLASS we must have the
-                        annotations available on the processor path otherwise the following
-                        will error will be thrown. (This is a particular problem with the
-                        annotation processor configuration in IntelliJ)
-                        Error:java: java.lang.NoClassDefFoundError: com/google/auto/service/AutoService
-                          com.google.auto.service.AutoService
-                -->
-                        <path>
-                            <groupId>com.google.auto.service</groupId>
-                            <artifactId>auto-service-annotations</artifactId>
-                            <version>1.0-rc7</version>
-                        </path>
-                    </annotationProcessorPaths>
+                    <classifier>standalone</classifier>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>generate-jooq-mapping</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>properties-maven-plugin</artifactId>
-                        <version>1.0.0</version>
-                        <executions>
-                            <execution>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>read-project-properties</goal>
-                                </goals>
-                                <configuration>
-                                    <files>
-                                        <file>src/main/resources/jooq/config.properties</file>
-                                    </files>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.jooq</groupId>
-                        <artifactId>jooq-codegen-maven</artifactId>
-                        <version>${jooq.version}</version>
-                        <executions>
-                            <execution>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>generate</goal>
-                                </goals>
-                                <configuration>
-                                    <jdbc>
-                                        <driver>${db.driver}</driver>
-                                        <url>${db.url}</url>
-                                        <user>${db.username}</user>
-                                        <password>${db.password}</password>
-                                    </jdbc>
-                                    <generator>
-                                        <target>
-                                            <directory>target/generated-sources/jooq</directory>
-                                            <packageName>ch.qiminfo.librairy.db</packageName>
-                                        </target>
-                                        <database>
-                                            <!-- The database schema (or in the absence of schema support, in your RDBMS this
-              can be the owner, user, database name) to be generated -->
-                                            <inputSchema>${db.schema}</inputSchema>
-
-                                            <!-- All elements that are generated from your schema
-                                                 (A Java regular expression. Use the pipe to separate several expressions)
-                                                 Watch out for case-sensitivity. Depending on your database, this might be important! -->
-                                            <includes>.*</includes>
-
-                                            <!-- All elements that are excluded from your schema
-                                                 (A Java regular expression. Use the pipe to separate several expressions).
-                                                 Excludes match before includes, i.e. excludes have a higher priority -->
-                                            <excludes></excludes>
-                                        </database>
-                                    </generator>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
 </project>

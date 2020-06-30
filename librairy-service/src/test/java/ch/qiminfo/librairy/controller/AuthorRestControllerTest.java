@@ -4,6 +4,7 @@ import ch.qiminfo.librairy.bean.AuthorBean;
 import ch.qiminfo.librairy.das.AuthorDAS;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +60,8 @@ public class AuthorRestControllerTest {
 
         AuthorBean authorResponse = this.mapper.readValue(contentAsString, AuthorBean.class);
 
-        assertThat(authorResponse).isNotNull();
-        assertThat(authorResponse.uuid()).isEqualTo(uuid);
+        Assertions.assertThat(authorResponse).isNotNull();
+        Assertions.assertThat(authorResponse.uuid()).isEqualTo(uuid);
     }
 
     @Test
@@ -98,10 +99,10 @@ public class AuthorRestControllerTest {
         JavaType authorBeanListType = mapper.getTypeFactory().constructCollectionType(List.class, AuthorBean.class);
         List<AuthorBean> authorBeans = this.mapper.readValue(contentAsString, authorBeanListType);
 
-        assertThat(authorBeans).hasSize(1);
+        Assertions.assertThat(authorBeans).hasSize(1);
         AuthorBean authorBean = authorBeans.get(0);
-        assertThat(authorBean).isNotNull();
-        assertThat(authorBean.uuid()).isEqualTo(uuid);
+        Assertions.assertThat(authorBean).isNotNull();
+        Assertions.assertThat(authorBean.uuid()).isEqualTo(uuid);
 
     }
 

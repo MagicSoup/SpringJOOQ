@@ -6,6 +6,7 @@ import ch.qiminfo.librairy.das.BookDAS;
 import ch.qiminfo.librairy.das.request.BookRequest;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +63,8 @@ public class BookRestControllerTest {
 
         BookBean bookResponse = this.mapper.readValue(contentAsString, BookBean.class);
 
-        assertThat(bookResponse).isNotNull();
-        assertThat(bookResponse.uuid()).isEqualTo(uuid);
+        Assertions.assertThat(bookResponse).isNotNull();
+        Assertions.assertThat(bookResponse.uuid()).isEqualTo(uuid);
     }
 
     @Test
@@ -101,10 +102,10 @@ public class BookRestControllerTest {
         JavaType bookBeanListType = this.mapper.getTypeFactory().constructCollectionType(List.class, BookBean.class);
         List<BookBean> bookBeans = this.mapper.readValue(contentAsString, bookBeanListType);
 
-        assertThat(bookBeans).hasSize(1);
+        Assertions.assertThat(bookBeans).hasSize(1);
         BookBean bookBean = bookBeans.get(0);
-        assertThat(bookBean).isNotNull();
-        assertThat(bookBean.uuid()).isEqualTo(uuid);
+        Assertions.assertThat(bookBean).isNotNull();
+        Assertions.assertThat(bookBean.uuid()).isEqualTo(uuid);
     }
 
     @Test
@@ -125,11 +126,11 @@ public class BookRestControllerTest {
         JavaType bookBeanListType = mapper.getTypeFactory().constructCollectionType(List.class, BookBean.class);
         List<BookBean> bookBeans = this.mapper.readValue(contentAsString, bookBeanListType);
 
-        assertThat(bookBeans).hasSize(1);
+        Assertions.assertThat(bookBeans).hasSize(1);
         BookBean bookBean = bookBeans.get(0);
-        assertThat(bookBean).isNotNull();
-        assertThat(bookBean.uuid()).isEqualTo(bookUuid);
-        assertThat(bookBean.authors().get(0).uuid()).isEqualTo(authorUuid);
+        Assertions.assertThat(bookBean).isNotNull();
+        Assertions.assertThat(bookBean.uuid()).isEqualTo(bookUuid);
+        Assertions.assertThat(bookBean.authors().get(0).uuid()).isEqualTo(authorUuid);
     }
 
     private BookBean getBook(String uuid) {
