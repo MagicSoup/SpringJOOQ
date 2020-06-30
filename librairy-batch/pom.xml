@@ -12,5 +12,27 @@
     <artifactId>librairy-batch</artifactId>
     <name>Librairy :: Batch</name>
 
+    <dependencies>
+        <!-- Internal -->
+        <dependency>
+            <groupId>ch.qiminfo.librairy</groupId>
+            <artifactId>librairy-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Spring boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-batch</artifactId>
+        </dependency>
+
+        <!-- Spring batch -->
+        <dependency>
+            <groupId>org.springframework.batch</groupId>
+            <artifactId>spring-batch-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
 
 </project>
