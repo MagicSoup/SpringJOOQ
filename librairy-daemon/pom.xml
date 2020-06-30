@@ -17,8 +17,14 @@
         <!-- internal -->
         <dependency>
             <groupId>ch.qiminfo.librairy</groupId>
-            <artifactId>librairy-das</artifactId>
+            <artifactId>librairy-service</artifactId>
             <version>${project.version}</version>
+        </dependency>
+
+        <!-- spring-boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
     </dependencies>
 
