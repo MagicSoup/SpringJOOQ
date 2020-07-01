@@ -11,10 +11,16 @@ Using :
 
 Install :
 - You need a MySQL Database in version 5.7.x
-- Run maven command : mvn clean install -Pgenerate-jooq-mapping
-- The Jooq mapping generation is inside a profile if you only want to generate it when you want
+    - Create a database named librairy
+    - Create two MySQL user named :
+        - librairy_user (do not need DDL rights)
+        - librairy_deploy_user (need DDL rights)
+- Run maven command : mvn clean install
 - The test are using an H2 Database
-- You can easily only use a H2 Database instead of a MySQL one by removing the mysql-connector from the pom and by changing the scope from the h2 driver and updading the application.yaml and config.properties to use H2 instead.
+- You can easily only use a H2 Database instead of a MySQL one by : 
+    - Removing the mysql-connector from the pom 
+    - Changing the scope from the h2 driver
+    - Updading the application.yaml and config.properties to use H2 instead.
 
 Endpoints :
   - Authors :
