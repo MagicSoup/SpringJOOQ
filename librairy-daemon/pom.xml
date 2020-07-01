@@ -12,6 +12,10 @@
     <packaging>jar</packaging>
     <name>Librairy :: Daemon</name>
 
+    <properties>
+        <project.sonar.name>librairy::${project.groupId}:${project.artifactId}</project.sonar.name>
+    </properties>
+
     <dependencies>
         <!-- internal -->
         <dependency>

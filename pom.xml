@@ -22,6 +22,7 @@
     </modules>
 
     <properties>
+        <project.sonar.name>librairy:${project.groupId}:${project.artifactId}</project.sonar.name>
         <java.version>1.8</java.version>
         <auto-value.version>1.7.3</auto-value.version>
         <auto-value-service.version>1.0-rc7</auto-value-service.version>
@@ -101,7 +102,7 @@
             <properties>
                 <sonar.sources>.</sonar.sources>
                 <sonar.inclusions>src/main/java/**,src/main/resources/**</sonar.inclusions>
-                <sonar.projectKey>librairy:${project.groupId}:${project.artifactId}</sonar.projectKey>
+                <sonar.projectKey>${project.sonar.name}</sonar.projectKey>
                 <sonar.organization>magicsoup</sonar.organization>
                 <sonar.host.url>https://sonarcloud.io</sonar.host.url>
             </properties>
