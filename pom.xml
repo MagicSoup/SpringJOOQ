@@ -101,6 +101,7 @@
             <properties>
                 <sonar.sources>.</sonar.sources>
                 <sonar.inclusions>src/main/java/**,src/main/resources/**</sonar.inclusions>
+                <sonar.projectKey>librairy:${project.groupId}:${project.artifactId}</sonar.projectKey>
                 <sonar.organization>magicsoup</sonar.organization>
                 <sonar.host.url>https://sonarcloud.io</sonar.host.url>
             </properties>
