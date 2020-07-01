@@ -11,13 +11,18 @@
     <artifactId>librairy-daemon</artifactId>
     <packaging>jar</packaging>
     <name>Librairy :: Daemon</name>
-    <description>Librairy daemon module</description>
 
     <dependencies>
         <!-- internal -->
         <dependency>
             <groupId>ch.qiminfo.librairy</groupId>
             <artifactId>librairy-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qiminfo.librairy</groupId>
+            <artifactId>librairy-batch</artifactId>
             <version>${project.version}</version>
         </dependency>
 

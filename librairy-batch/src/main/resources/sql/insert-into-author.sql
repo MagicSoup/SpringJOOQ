@@ -1,0 +1,1 @@
+INSERT INTO author (uuid, first_name, last_name) VALUES (:uuid, :firstName, :lastName)

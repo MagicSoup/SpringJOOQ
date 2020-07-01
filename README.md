@@ -3,6 +3,7 @@ Simple Librairy Project
 Using :
 - Spring Boot 2.3.1.RELEASE
 - Spring 5.2.7.RELEASE
+- Spring Batch 4.2.4.RELEASE
 - Google AutoValue 1.7.3
 - Google Guava 29.0-jre
 - JOOQ 3.13.2
