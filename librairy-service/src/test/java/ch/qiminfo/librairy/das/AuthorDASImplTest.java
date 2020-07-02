@@ -38,6 +38,18 @@ public class AuthorDASImplTest {
     @Test
     public void get_all_authors() {
         List<AuthorBean> authors = this.authorDAS.getAll();
-        Assertions.assertThat(authors).hasSize(3);
+        assertThat(authors).hasSize(3);
+    }
+
+    @Test
+    public void author_exist(){
+        boolean doesExist = this.authorDAS.existByExternalUuid("0");
+        assertThat(doesExist).isTrue();
+    }
+
+    @Test
+    public void author_do_not_exist(){
+        boolean doesExist = this.authorDAS.existByExternalUuid("1");
+        assertThat(doesExist).isFalse();
     }
 }

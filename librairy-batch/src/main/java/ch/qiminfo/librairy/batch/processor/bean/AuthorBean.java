@@ -1,4 +1,4 @@
-package ch.qiminfo.librairy.batch.processor;
+package ch.qiminfo.librairy.batch.processor.bean;
 
 import java.util.StringJoiner;
 
@@ -10,10 +10,13 @@ public class AuthorBean {
 
     private String lastName;
 
-    public AuthorBean(String uuid, String firstName, String lastName) {
+    private String externalUuid;
+
+    public AuthorBean(String uuid, String firstName, String lastName, String externalUuid) {
         this.uuid = uuid;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.externalUuid = externalUuid;
     }
 
     public String getUuid() {
@@ -40,12 +43,21 @@ public class AuthorBean {
         this.lastName = lastName;
     }
 
+    public String getExternalUuid() {
+        return externalUuid;
+    }
+
+    public void setExternalUuid(String externalUuid) {
+        this.externalUuid = externalUuid;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(", ", AuthorBean.class.getSimpleName() + "[", "]")
                 .add("uuid='" + uuid + "'")
                 .add("firstName='" + firstName + "'")
                 .add("lastName='" + lastName + "'")
+                .add("externalUuid='" + externalUuid + "'")
                 .toString();
     }
 }

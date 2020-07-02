@@ -1,0 +1,1 @@
+UPDATE AUTHOR SET EXTERNAL_UUID = '0' where UUID = 'ea14c2ba-b0af-11ea-b3de-0242ac130004';

@@ -10,4 +10,6 @@ public interface AuthorDAS {
     List<AuthorBean> getAll();
 
     Optional<AuthorBean> getByUuid(String uuid);
+
+    boolean existByExternalUuid(String externalUuid);
 }
