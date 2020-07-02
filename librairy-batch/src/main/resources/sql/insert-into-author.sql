@@ -1,1 +1,1 @@
-INSERT INTO author (uuid, first_name, last_name) VALUES (:uuid, :firstName, :lastName)
+INSERT INTO AUTHOR (UUID, FIRST_NAME, LAST_NAME, EXTERNAL_UUID) VALUES (:uuid, :firstName, :lastName, :externalUuid);

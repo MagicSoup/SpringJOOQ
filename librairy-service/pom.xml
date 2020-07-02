@@ -116,8 +116,8 @@
                         <configuration>
                             <generator>
                                 <generate>
-                                    <pojos>true</pojos>
-                                    <daos>true</daos>
+                                    <pojos>false</pojos>
+                                    <daos>false</daos>
                                     <pojosEqualsAndHashCode>true</pojosEqualsAndHashCode>
                                     <javaTimeTypes>true</javaTimeTypes>
                                 </generate>

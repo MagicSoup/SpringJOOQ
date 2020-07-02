@@ -1,8 +1,10 @@
 package ch.qiminfo.librairy.batch.config;
 
-import ch.qiminfo.librairy.batch.processor.AuthorBean;
-import ch.qiminfo.librairy.batch.processor.AuthorCsv;
 import ch.qiminfo.librairy.batch.processor.AuthorProcessor;
+import ch.qiminfo.librairy.batch.processor.FilterAuthorProcessor;
+import ch.qiminfo.librairy.batch.processor.bean.AuthorBean;
+import ch.qiminfo.librairy.batch.processor.bean.AuthorCsv;
+import com.google.common.collect.Lists;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -10,12 +12,14 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
+import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -51,7 +55,7 @@ public class BatchConfiguration {
                 .name("personItemReader")
                 .resource(new ClassPathResource("sample-data-author.csv"))
                 .delimited()
-                .names(new String[]{"firstName", "lastName"})
+                .names(new String[]{"firstName", "lastName", "externalUid"})
                 .fieldSetMapper(new BeanWrapperFieldSetMapper<AuthorCsv>() {{
                     setTargetType(AuthorCsv.class);
                 }})
@@ -59,8 +63,11 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public ItemProcessor<AuthorCsv, AuthorBean> processor() {
-        return new AuthorProcessor();
+    public ItemProcessor<AuthorCsv, AuthorBean> compositeAuthorProcessor(AuthorProcessor authorProcessor,
+                                                                         FilterAuthorProcessor filterAuthorProcessor) {
+        CompositeItemProcessor<AuthorCsv, AuthorBean> processor = new CompositeItemProcessor<AuthorCsv, AuthorBean>();
+        processor.setDelegates(Lists.newArrayList(authorProcessor, filterAuthorProcessor));
+        return processor;
     }
 
     @Bean
@@ -73,22 +80,23 @@ public class BatchConfiguration {
     }
 
     @Bean
+    public Step step1(ItemProcessor<AuthorCsv, AuthorBean> compositeAuthorProcessor,
+                      ItemWriter<AuthorBean> writer) {
+        return this.stepBuilderFactory.get("step1")
+                .<AuthorCsv, AuthorBean>chunk(10)
+                .reader(reader())
+                .processor(compositeAuthorProcessor)
+                .writer(writer)
+                .build();
+    }
+
+    @Bean
     public Job importAuthorJob(JobCompletionNotificationListener listener, Step step1) {
         return this.jobBuilderFactory.get("importAuthorJob")
                 .incrementer(new RunIdIncrementer())
                 .listener(listener)
                 .flow(step1)
                 .end()
-                .build();
-    }
-
-    @Bean
-    public Step step1(JdbcBatchItemWriter<AuthorBean> writer) {
-        return this.stepBuilderFactory.get("step1")
-                .<AuthorCsv, AuthorBean>chunk(10)
-                .reader(reader())
-                .processor(processor())
-                .writer(writer)
                 .build();
     }
 

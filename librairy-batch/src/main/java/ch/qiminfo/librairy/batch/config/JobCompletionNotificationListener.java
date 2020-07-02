@@ -1,6 +1,6 @@
 package ch.qiminfo.librairy.batch.config;
 
-import ch.qiminfo.librairy.batch.processor.AuthorBean;
+import ch.qiminfo.librairy.batch.processor.bean.AuthorBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.BatchStatus;
@@ -26,9 +26,9 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
     public void afterJob(JobExecution jobExecution) {
         if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
             log.info("!!! JOB FINISHED! Time to verify the results");
-            jdbcTemplate.query("SELECT uuid, first_name, last_name FROM author",
+            jdbcTemplate.query("SELECT UUID, FIRST_NAME, LAST_NAME, EXTERNAL_UUID FROM AUTHOR",
                     (rs, row) -> new AuthorBean(rs.getString(1), rs.getString(2),
-                            rs.getString(3))
+                            rs.getString(3), rs.getString(4))
             ).forEach(author -> log.info("Found <" + author + "> in the database."));
         }
     }

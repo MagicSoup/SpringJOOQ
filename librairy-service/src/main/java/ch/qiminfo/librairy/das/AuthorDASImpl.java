@@ -41,4 +41,9 @@ public class AuthorDASImpl implements AuthorDAS {
         AuthorRecord record = this.dsl.selectFrom(AUTHOR).where(AUTHOR.UUID.eq(uuid)).fetchOne();
         return record != null ? Optional.of(this.authorMapper.map(record)) : Optional.empty();
     }
+
+    @Override
+    public boolean existByExternalUuid(String externalUuid) {
+        return this.dsl.fetchExists(this.dsl.selectFrom(AUTHOR).where(AUTHOR.EXTERNAL_UUID.eq(externalUuid)));
+    }
 }
