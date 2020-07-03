@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AuthorRestController.class)
-public class AuthorRestControllerTest {
+class AuthorRestControllerTest {
 
     private final static String API_BASE_URI = "/v1/author/";
 
@@ -44,7 +44,7 @@ public class AuthorRestControllerTest {
     private AuthorDAS authorDAS;
 
     @Test
-    public void get_existing_author_should_return_ok_status() throws Exception {
+    void get_existing_author_should_return_ok_status() throws Exception {
 
         String uuid = UUID.randomUUID().toString();
         AuthorBean authorBean = getAuthor(uuid);
@@ -65,7 +65,7 @@ public class AuthorRestControllerTest {
     }
 
     @Test
-    public void get_unknown_author_should_return_not_found_status() throws Exception {
+    void get_unknown_author_should_return_not_found_status() throws Exception {
 
         String uuid = UUID.randomUUID().toString();
 
@@ -78,12 +78,12 @@ public class AuthorRestControllerTest {
         MockHttpServletResponse response = resultActions.andReturn().getResponse();
         String contentAsString = response.getContentAsString();
 
-        assertThat(contentAsString).isNotNull();
-        assertThat(contentAsString).isEqualTo(String.format(EXPECTED_NOT_FOUND_MESSAGE, uuid));
+        assertThat(contentAsString).isNotNull()
+                .isEqualTo(String.format(EXPECTED_NOT_FOUND_MESSAGE, uuid));
     }
 
     @Test
-    public void get_all_authors_should_return_ok_status() throws Exception {
+    void get_all_authors_should_return_ok_status() throws Exception {
 
         String uuid = UUID.randomUUID().toString();
 

@@ -25,12 +25,12 @@ public class FilterAuthorProcessor implements ItemProcessor<AuthorBean, AuthorBe
     public AuthorBean process(AuthorBean author) throws Exception {
 
         if (Strings.isNullOrEmpty(author.getExternalUuid())) {
-            LOGGER.info("Do not treat " + author + " because its external UUID is empty or null");
+            LOGGER.info("Do not treat {} because its external UUID is empty or null", author);
             return null;
         }
 
         if (this.authorDAS.existByExternalUuid(author.getExternalUuid())) {
-            LOGGER.info("Do not treat " + author + " because it's already exist");
+            LOGGER.info("Do not treat {} because it's already exist", author);
             return null;
         }
 

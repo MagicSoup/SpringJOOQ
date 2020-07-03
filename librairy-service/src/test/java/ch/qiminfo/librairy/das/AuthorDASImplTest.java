@@ -26,13 +26,13 @@ public class AuthorDASImplTest {
     @Test
     public void get_existing_author() {
         Optional<AuthorBean> authorBertBates = this.authorDAS.getByUuid(AUTHOR_BERT_BATES_UUID);
-        assertThat(authorBertBates.isPresent()).isTrue();
+        assertThat(authorBertBates).isPresent();
     }
 
     @Test
     public void get_unknown_author() {
         Optional<AuthorBean> authorBertBates = this.authorDAS.getByUuid(AUTHOR_UNKNOWN_UUID);
-        assertThat(authorBertBates.isPresent()).isFalse();
+        assertThat(authorBertBates).isEmpty();
     }
 
     @Test

@@ -48,8 +48,9 @@ public class BookDASImpl implements BookDAS {
                 .leftJoin(AUTHOR).onKey()
                 .where(DSL.trueCondition());
 
-        if (bookRequest.authorUuid().isPresent()) {
-            selectConditionStep.and(AUTHOR.UUID.eq(bookRequest.authorUuid().get()));
+        Optional<String> optionalAuthorUuid = bookRequest.authorUuid();
+        if (optionalAuthorUuid.isPresent()) {
+            selectConditionStep.and(AUTHOR.UUID.eq(optionalAuthorUuid.get()));
         }
 
         SelectSeekStep2<Record, String, String> records = selectConditionStep.orderBy(BOOK.TITLE.asc(), BOOK.UUID.asc());

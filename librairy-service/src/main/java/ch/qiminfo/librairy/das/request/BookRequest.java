@@ -15,7 +15,7 @@ public abstract class BookRequest {
     }
 
     @AutoValue.Builder
-    public static abstract class Builder {
+    public abstract static class Builder {
 
         public abstract Builder authorUuid(@Nullable String authorUuid);
 

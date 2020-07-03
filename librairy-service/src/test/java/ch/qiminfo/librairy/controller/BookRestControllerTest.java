@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(BookRestController.class)
-public class BookRestControllerTest {
+class BookRestControllerTest {
 
     private final static String API_BASE_URI = "/v1/book/";
 
@@ -47,7 +47,7 @@ public class BookRestControllerTest {
     private BookDAS bookDAS;
 
     @Test
-    public void get_existing_book_should_return_ok_status() throws Exception {
+    void get_existing_book_should_return_ok_status() throws Exception {
 
         String uuid = UUID.randomUUID().toString();
         BookBean bean = getBook(uuid);
@@ -68,7 +68,7 @@ public class BookRestControllerTest {
     }
 
     @Test
-    public void get_unknown_book_should_return_not_found_status() throws Exception {
+    void get_unknown_book_should_return_not_found_status() throws Exception {
 
         String uuid = UUID.randomUUID().toString();
 
@@ -81,12 +81,12 @@ public class BookRestControllerTest {
         MockHttpServletResponse response = resultActions.andReturn().getResponse();
         String contentAsString = response.getContentAsString();
 
-        assertThat(contentAsString).isNotNull();
-        assertThat(contentAsString).isEqualTo(String.format(EXPECTED_NOT_FOUND_MESSAGE, uuid));
+        assertThat(contentAsString).isNotNull()
+                .isEqualTo(String.format(EXPECTED_NOT_FOUND_MESSAGE, uuid));
     }
 
     @Test
-    public void get_all_books_should_return_ok_status() throws Exception {
+    void get_all_books_should_return_ok_status() throws Exception {
 
         String uuid = UUID.randomUUID().toString();
 
@@ -109,7 +109,7 @@ public class BookRestControllerTest {
     }
 
     @Test
-    public void get_all_books_by_author_should_return_ok_status() throws Exception {
+    void get_all_books_by_author_should_return_ok_status() throws Exception {
 
         String bookUuid = UUID.randomUUID().toString();
         String authorUuid = UUID.randomUUID().toString();

@@ -24,7 +24,7 @@ public class AuthorProcessor implements ItemProcessor<AuthorCsv, AuthorBean> {
         final AuthorBean transformedAuthor = new AuthorBean(UUID.randomUUID().toString(),
                 firstName, lastName, author.getExternalUuid());
 
-        LOGGER.info("Converting (" + author + ") into (" + transformedAuthor + ")");
+        LOGGER.info("Converting {} into {}", author, transformedAuthor);
 
         return transformedAuthor;
     }
