@@ -13,10 +13,6 @@
     <packaging>jar</packaging>
     <name>Librairy :: Service</name>
 
-    <properties>
-        <project.sonar.name>librairy::${project.groupId}:${project.artifactId}</project.sonar.name>
-    </properties>
-
     <dependencies>
 
         <!-- spring-boot -->

@@ -12,10 +12,6 @@
     <artifactId>librairy-batch</artifactId>
     <name>Librairy :: Batch</name>
 
-    <properties>
-        <project.sonar.name>librairy::${project.groupId}:${project.artifactId}</project.sonar.name>
-    </properties>
-
     <dependencies>
         <!-- Internal -->
         <dependency>
