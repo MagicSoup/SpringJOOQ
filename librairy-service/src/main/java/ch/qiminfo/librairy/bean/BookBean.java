@@ -29,7 +29,7 @@ public abstract class BookBean {
 
     @AutoValue.Builder
     @JsonPOJOBuilder(withPrefix = "")
-    public static abstract class Builder {
+    public abstract static class Builder {
 
         @JsonCreator
         private static BookBean.Builder create() {

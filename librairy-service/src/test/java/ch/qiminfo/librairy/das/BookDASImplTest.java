@@ -30,13 +30,13 @@ public class BookDASImplTest {
     @Test
     public void get_existing_book() {
         Optional<BookBean> book = this.bookDAS.getByUuid(BOOK_SERVLET_UUID);
-        assertThat(book.isPresent()).isTrue();
+        assertThat(book).isPresent();
     }
 
     @Test
     public void get_unknown_book() {
         Optional<BookBean> book = this.bookDAS.getByUuid(BOOK_UNKNOWN_UUID);
-        assertThat(book.isPresent()).isFalse();
+        assertThat(book).isEmpty();
     }
 
     @Test

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JobCompletionNotificationListener extends JobExecutionListenerSupport {
 
-    private static final Logger log = LoggerFactory.getLogger(JobCompletionNotificationListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JobCompletionNotificationListener.class);
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -25,11 +25,11 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
     @Override
     public void afterJob(JobExecution jobExecution) {
         if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
-            log.info("!!! JOB FINISHED! Time to verify the results");
+            LOGGER.info("!!! JOB FINISHED! Time to verify the results");
             jdbcTemplate.query("SELECT UUID, FIRST_NAME, LAST_NAME, EXTERNAL_UUID FROM AUTHOR",
                     (rs, row) -> new AuthorBean(rs.getString(1), rs.getString(2),
                             rs.getString(3), rs.getString(4))
-            ).forEach(author -> log.info("Found <" + author + "> in the database."));
+            ).forEach(author -> LOGGER.info("Found <{}> in the database.", author));
         }
     }
 }
