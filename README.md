@@ -1,5 +1,7 @@
 Simple Librairy Project
 
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=MagicSoup_SpringJOOQ)](https://sonarcloud.io/dashboard?id=MagicSoup_SpringJOOQ)
+
 Using :
 - Spring Boot 2.3.1.RELEASE
 - Spring 5.2.7.RELEASE
