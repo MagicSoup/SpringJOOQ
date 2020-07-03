@@ -76,7 +76,7 @@ public class BatchConfiguration {
     public Step step1(StepBuilderFactory stepBuilderFactory,
                       ItemProcessor<AuthorCsv, AuthorBean> compositeAuthorProcessor,
                       ItemWriter<AuthorBean> writer) {
-        return this.stepBuilderFactory.get("step1")
+        return stepBuilderFactory.get("step1")
                 .<AuthorCsv, AuthorBean>chunk(10)
                 .reader(reader())
                 .processor(compositeAuthorProcessor)
@@ -88,7 +88,7 @@ public class BatchConfiguration {
     public Job importAuthorJob(JobBuilderFactory jobBuilderFactory,
                                JobCompletionNotificationListener listener,
                                Step step1) {
-        return this.jobBuilderFactory.get("importAuthorJob")
+        return jobBuilderFactory.get("importAuthorJob")
                 .incrementer(new RunIdIncrementer())
                 .listener(listener)
                 .flow(step1)
