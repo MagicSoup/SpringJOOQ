@@ -103,7 +103,7 @@
                 <sonar.host.url>https://sonarcloud.io</sonar.host.url>
                 <sonar.organization>magicsoup</sonar.organization>
                 <sonar.projectKey>MagicSoup_SpringJOOQ</sonar.projectKey>
-                <sonar.moduleKey>${groupId}:${artifactId}</sonar.moduleKey>
+                <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
             </properties>
             <activation>
                 <activeByDefault>false</activeByDefault>
