@@ -18,12 +18,15 @@
     </properties>
 
     <dependencies>
-        <!-- include the daemon module to be sure that it
-        will be the last module to be treated by maven in order to be
-        able to generate the jacoco aggregation report last -->
+        <!-- include all the modules that need to be aggregated -->
         <dependency>
             <groupId>ch.qiminfo.librairy</groupId>
-            <artifactId>librairy-daemon</artifactId>
+            <artifactId>librairy-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qiminfo.librairy</groupId>
+            <artifactId>librairy-batch</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
