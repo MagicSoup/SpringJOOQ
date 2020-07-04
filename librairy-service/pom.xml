@@ -13,6 +13,10 @@
     <packaging>jar</packaging>
     <name>Librairy :: Service</name>
 
+    <properties>
+        <sonar.coverage.jacoco.xmlReportPaths>${basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
+    </properties>
+
     <dependencies>
 
         <!-- spring-boot -->
