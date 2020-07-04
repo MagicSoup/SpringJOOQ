@@ -19,6 +19,7 @@
         <module>librairy-daemon</module>
         <module>librairy-service</module>
         <module>librairy-batch</module>
+        <module>librairy-test</module>
     </modules>
 
     <properties>
@@ -28,7 +29,10 @@
         <findbugs.version>3.0.2</findbugs.version>
         <guava.version>29.0-jre</guava.version>
         <jooq.version>3.13.2</jooq.version>
+        <!-- plugins -->
         <sonar.version>3.7.0.1746</sonar.version>
+        <jacoco.version>0.8.5</jacoco.version>
+        <aggregate.report.dir>librairy-test/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
     </properties>
 
     <dependencyManagement>
@@ -124,6 +128,22 @@
                         </executions>
                     </plugin>
                 </plugins>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.jacoco</groupId>
+                            <artifactId>jacoco-maven-plugin</artifactId>
+                            <version>${jacoco.version}</version>
+                            <executions>
+                                <execution>
+                                    <goals>
+                                        <goal>prepare-agent</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
             </build>
         </profile>
     </profiles>

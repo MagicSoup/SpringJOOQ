@@ -7,10 +7,14 @@
         <artifactId>librairy-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>ch.qiminfo</groupId>
+    <groupId>ch.qiminfo.librairy</groupId>
     <artifactId>librairy-daemon</artifactId>
     <packaging>jar</packaging>
     <name>Librairy :: Daemon</name>
+
+    <properties>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
+    </properties>
 
     <dependencies>
         <!-- internal -->
