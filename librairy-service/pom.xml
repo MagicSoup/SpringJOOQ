@@ -14,6 +14,11 @@
     <name>Librairy :: Service</name>
 
     <properties>
+        <code.coverage.exclusions>
+            **/ch/qiminfo/librairy/db**,
+            **/ch/qiminfo/librairy/bean/**,
+            **/ch/qiminfo/librairy/das/request/**
+        </code.coverage.exclusions>
         <sonar.coverage.jacoco.xmlReportPaths>${basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
