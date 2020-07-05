@@ -32,6 +32,7 @@
         <!-- plugins -->
         <sonar.version>3.7.0.1746</sonar.version>
         <jacoco.version>0.8.5</jacoco.version>
+        <code.coverage.exclusions></code.coverage.exclusions>
         <aggregate.report.dir>librairy-test/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
     </properties>
 
@@ -104,48 +105,20 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.sonarsource.scanner.maven</groupId>
-                    <artifactId>sonar-maven-plugin</artifactId>
-                    <version>${sonar.version}</version>
-                </plugin>
-                <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${jacoco.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>${sonar.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
     </build>
 
     <profiles>
-        <profile>
-            <id>sonar</id>
-            <properties>
-                <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-                <sonar.organization>magicsoup</sonar.organization>
-                <sonar.projectKey>MagicSoup_SpringJOOQ</sonar.projectKey>
-                <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
-            </properties>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.sonarsource.scanner.maven</groupId>
-                        <artifactId>sonar-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sonar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
         <profile>
             <id>coverage</id>
             <activation>
@@ -159,8 +132,40 @@
                         <executions>
                             <execution>
                                 <id>prepare-agent</id>
+                                <phase>verify</phase>
                                 <goals>
                                     <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>sonar</id>
+            <properties>
+                <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+                <sonar.organization>magicsoup</sonar.organization>
+                <sonar.projectKey>MagicSoup_SpringJOOQ</sonar.projectKey>
+                <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
+                <sonar.exclusions>${code.coverage.exclusions}</sonar.exclusions>
+                <sonar.report>${aggregate.report.dir}</sonar.report>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sonar</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sonar</goal>
                                 </goals>
                             </execution>
                         </executions>
