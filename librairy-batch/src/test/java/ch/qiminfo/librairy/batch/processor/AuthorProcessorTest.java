@@ -9,7 +9,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AuthorProcessorTest {
+class AuthorProcessorTest {
 
     private final AuthorProcessor authorProcessor = new AuthorProcessor();
 
@@ -22,7 +22,7 @@ public class AuthorProcessorTest {
     }
 
     @Test
-    public void process() throws Exception {
+    void process() throws Exception {
         AuthorCsv authorCsv = getAuthorCsv();
         AuthorBean authorBean = this.authorProcessor.process(authorCsv);
         assertThat(authorBean).isNotNull();

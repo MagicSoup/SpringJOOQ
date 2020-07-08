@@ -8,12 +8,12 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AuthorMapperTest {
+class AuthorMapperTest {
 
     private final AuthorMapper authorMapper = new AuthorMapper();
 
     @Test
-    public void map() {
+    void map() {
         AuthorRecord record = new AuthorRecord();
         record.setUuid(UUID.randomUUID().toString());
         record.setFirstName("Firstname");
