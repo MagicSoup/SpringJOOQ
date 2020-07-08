@@ -21,6 +21,11 @@
         <!-- include all the modules that need to be aggregated -->
         <dependency>
             <groupId>ch.qiminfo.librairy</groupId>
+            <artifactId>librairy-daemon</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qiminfo.librairy</groupId>
             <artifactId>librairy-service</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -43,6 +48,22 @@
                         <goals>
                             <goal>report-aggregate</goal>
                         </goals>
+                        <configuration>
+                            <excludes>
+                                <!-- common -->
+                                <exclude>ch/qiminfo/librairy/config/**/*</exclude>
+                                <!-- service -->
+                                <exclude>ch/qiminfo/librairy/db/**/*</exclude>
+                                <exclude>ch/qiminfo/librairy/db/tables/**/*</exclude>
+                                <exclude>ch/qiminfo/librairy/db/tables/records/**/*</exclude>
+                                <exclude>ch/qiminfo/librairy/bean/**/*</exclude>
+                                <exclude>ch/qiminfo/librairy/das/request/**/*</exclude>
+                                <exclude>ch/qiminfo/librairy/exception/**/*</exclude>
+                                <!-- batch -->
+                                <exclude>ch/qiminfo/librairy/batch/config/**/*</exclude>
+                                <exclude>ch/qiminfo/librairy/batch/processor/bean/**/*</exclude>
+                            </excludes>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
