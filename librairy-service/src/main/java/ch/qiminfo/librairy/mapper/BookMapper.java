@@ -5,7 +5,6 @@ import ch.qiminfo.librairy.bean.BookBean;
 import ch.qiminfo.librairy.db.tables.records.AuthorRecord;
 import ch.qiminfo.librairy.db.tables.records.BookRecord;
 import com.google.common.collect.Lists;
-import org.jooq.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +28,7 @@ public class BookMapper {
         return map(record, null);
     }
 
-    public BookBean map(BookRecord record, Result<AuthorRecord> authorRecords) {
+    public BookBean map(BookRecord record, List<AuthorRecord> authorRecords) {
         List<AuthorBean> authors = Lists.newArrayList();
         if (authorRecords != null) {
             authors = authorRecords.stream()

@@ -58,7 +58,11 @@ public class BookDASImpl implements BookDAS {
                 .fetchGroups(BOOK, AUTHOR);
 
         return bookRecordResultMap.keySet().stream()
-                .map(bookRecord -> this.bookMapper.map(bookRecord, bookRecordResultMap.get(bookRecord)))
+                .map(bookRecord -> this.bookMapper.map(bookRecord, map(bookRecordResultMap.get(bookRecord))))
                 .collect(Collectors.toList());
+    }
+
+    private List<AuthorRecord> map(Result<AuthorRecord> authorRecords) {
+        return authorRecords.stream().collect(Collectors.toList());
     }
 }

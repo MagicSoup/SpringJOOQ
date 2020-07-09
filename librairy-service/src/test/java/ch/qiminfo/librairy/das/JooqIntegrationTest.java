@@ -1,11 +1,10 @@
 package ch.qiminfo.librairy.das;
 
-import org.jooq.DSLContext;
-import org.jooq.Record3;
-import org.jooq.Result;
+import ch.qiminfo.librairy.db.tables.records.AuthorBookRecord;
+import ch.qiminfo.librairy.db.tables.records.BookRecord;
+import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import java.util.UUID;
 import static ch.qiminfo.librairy.db.tables.Author.AUTHOR;
 import static ch.qiminfo.librairy.db.tables.AuthorBook.AUTHOR_BOOK;
 import static ch.qiminfo.librairy.db.tables.Book.BOOK;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @JooqTest
 @RunWith(SpringRunner.class)
@@ -70,11 +70,13 @@ class JooqIntegrationTest {
     void givenInvalUUIDData_whenInserting_thenFail() {
 
         String unknownBookUuid = UUID.randomUUID().toString();
-
-        Assertions.assertThrows(DataAccessException.class, () -> dsl.insertInto(AUTHOR_BOOK)
+        InsertSetMoreStep<AuthorBookRecord> step = dsl.insertInto(AUTHOR_BOOK)
                 .set(AUTHOR_BOOK.AUTHOR_UUID, AUTHOR_BERT_BATES_UUID)
-                .set(AUTHOR_BOOK.BOOK_UUID, unknownBookUuid)
-                .execute());
+                .set(AUTHOR_BOOK.BOOK_UUID, unknownBookUuid);
+
+        assertThrows(DataAccessException.class, () -> {
+            step.execute();
+        });
     }
 
     @Test
@@ -120,8 +122,8 @@ class JooqIntegrationTest {
 
     @Test
     void givenInvalUUIDData_whenDeleting_thenFail() {
-        Assertions.assertThrows(DataAccessException.class, () -> dsl.delete(BOOK)
-                .where(BOOK.UUID.eq(BOOK_HEAD_FIRST_JAVA_UUID))
-                .execute());
+        DeleteConditionStep<BookRecord> conditionStep = dsl.delete(BOOK)
+                .where(BOOK.UUID.eq(BOOK_HEAD_FIRST_JAVA_UUID));
+        assertThrows(DataAccessException.class, conditionStep::execute);
     }
 }
