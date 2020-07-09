@@ -38,10 +38,9 @@
             **/*Request.java,
             **/*Response.java,
             **/*Exception.java,
-            ch/qiminfo/librairy/config/**/*,
-            ch/qiminfo/librairy/batch/config/**/*
-            ch/qiminfo/librairy/db/**/*,
-            ch/qiminfo/librairy/LibrairyApplication.java
+            **/*Configuration.java,
+            **/ch/qiminfo/librairy/db/**/*,
+            **/ch/qiminfo/librairy/LibrairyApplication.java
         </code.coverage.exclusions>
         <aggregate.report.dir>librairy-test/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
     </properties>
