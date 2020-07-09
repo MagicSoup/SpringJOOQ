@@ -2,13 +2,22 @@ package ch.qiminfo.librairy.batch.processor.bean;
 
 import java.util.StringJoiner;
 
-public class AuthorCsv {
+public class AuthorCsvBean {
 
-    private String firstName;
+    protected String firstName;
 
-    private String lastName;
+    protected String lastName;
 
-    private String externalUuid;
+    protected String externalUuid;
+
+    public AuthorCsvBean() {
+    }
+
+    protected AuthorCsvBean(String firstName, String lastName, String externalUuid) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.externalUuid = externalUuid;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -40,7 +49,7 @@ public class AuthorCsv {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", AuthorCsv.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", AuthorCsvBean.class.getSimpleName() + "[", "]")
                 .add("firstName='" + firstName + "'")
                 .add("lastName='" + lastName + "'")
                 .add("externalUuid='" + externalUuid + "'")
@@ -70,12 +79,8 @@ public class AuthorCsv {
             return this;
         }
 
-        public AuthorCsv build() {
-            AuthorCsv authorCsv = new AuthorCsv();
-            authorCsv.setFirstName(firstName);
-            authorCsv.setLastName(lastName);
-            authorCsv.setExternalUuid(externalUuid);
-            return authorCsv;
+        public AuthorCsvBean build() {
+            return new AuthorCsvBean(this.firstName, this.lastName, this.externalUuid);
         }
     }
 }

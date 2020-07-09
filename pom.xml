@@ -32,7 +32,17 @@
         <!-- plugins -->
         <sonar.version>3.7.0.1746</sonar.version>
         <jacoco.version>0.8.5</jacoco.version>
-        <code.coverage.exclusions></code.coverage.exclusions>
+        <code.coverage.exclusions>
+            **/*Bean.java,
+            **/*DTO.java,
+            **/*Request.java,
+            **/*Response.java,
+            **/*Exception.java,
+            ch/qiminfo/librairy/config/**/*,
+            ch/qiminfo/librairy/batch/config/**/*
+            ch/qiminfo/librairy/db/**/*,
+            ch/qiminfo/librairy/LibrairyApplication.java
+        </code.coverage.exclusions>
         <aggregate.report.dir>librairy-test/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
     </properties>
 

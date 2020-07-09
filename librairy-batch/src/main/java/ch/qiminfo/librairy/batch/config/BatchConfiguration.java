@@ -3,7 +3,7 @@ package ch.qiminfo.librairy.batch.config;
 import ch.qiminfo.librairy.batch.processor.AuthorProcessor;
 import ch.qiminfo.librairy.batch.processor.FilterAuthorProcessor;
 import ch.qiminfo.librairy.batch.processor.bean.AuthorBean;
-import ch.qiminfo.librairy.batch.processor.bean.AuthorCsv;
+import ch.qiminfo.librairy.batch.processor.bean.AuthorCsvBean;
 import com.google.common.collect.Lists;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -43,10 +43,10 @@ public class BatchConfiguration {
     private Resource insertAuthorSQL;
 
     @Bean
-    public FlatFileItemReader<AuthorCsv> reader() {
-        BeanWrapperFieldSetMapper<AuthorCsv> authorCsvBeanWrapperFieldSetMapper = new BeanWrapperFieldSetMapper<>();
-        authorCsvBeanWrapperFieldSetMapper.setTargetType(AuthorCsv.class);
-        return new FlatFileItemReaderBuilder<AuthorCsv>()
+    public FlatFileItemReader<AuthorCsvBean> reader() {
+        BeanWrapperFieldSetMapper<AuthorCsvBean> authorCsvBeanWrapperFieldSetMapper = new BeanWrapperFieldSetMapper<>();
+        authorCsvBeanWrapperFieldSetMapper.setTargetType(AuthorCsvBean.class);
+        return new FlatFileItemReaderBuilder<AuthorCsvBean>()
                 .name("personItemReader")
                 .resource(new ClassPathResource("sample-data-author.csv"))
                 .delimited()
@@ -56,9 +56,9 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public ItemProcessor<AuthorCsv, AuthorBean> compositeAuthorProcessor(AuthorProcessor authorProcessor,
-                                                                         FilterAuthorProcessor filterAuthorProcessor) {
-        CompositeItemProcessor<AuthorCsv, AuthorBean> processor = new CompositeItemProcessor<>();
+    public ItemProcessor<AuthorCsvBean, AuthorBean> compositeAuthorProcessor(AuthorProcessor authorProcessor,
+                                                                             FilterAuthorProcessor filterAuthorProcessor) {
+        CompositeItemProcessor<AuthorCsvBean, AuthorBean> processor = new CompositeItemProcessor<>();
         processor.setDelegates(Lists.newArrayList(authorProcessor, filterAuthorProcessor));
         return processor;
     }
@@ -74,10 +74,10 @@ public class BatchConfiguration {
 
     @Bean
     public Step step1(StepBuilderFactory stepBuilderFactory,
-                      ItemProcessor<AuthorCsv, AuthorBean> compositeAuthorProcessor,
+                      ItemProcessor<AuthorCsvBean, AuthorBean> compositeAuthorProcessor,
                       ItemWriter<AuthorBean> writer) {
         return stepBuilderFactory.get("step1")
-                .<AuthorCsv, AuthorBean>chunk(10)
+                .<AuthorCsvBean, AuthorBean>chunk(10)
                 .reader(reader())
                 .processor(compositeAuthorProcessor)
                 .writer(writer)
