@@ -5,7 +5,8 @@ import org.jooq.Record3;
 import org.jooq.Result;
 import org.jooq.impl.DSL;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jooq.JooqTest;
@@ -20,7 +21,7 @@ import static ch.qiminfo.librairy.db.tables.Book.BOOK;
 
 @JooqTest
 @RunWith(SpringRunner.class)
-public class JooqIntegrationTest {
+class JooqIntegrationTest {
 
     private final static String AUTHOR_BERT_BATES_UUID = "ea14c2ba-b0af-11ea-b3de-0242ac130004";
     private final static String AUTHOR_BRYAN_BASHAM_UUID = "ff302fc2-b0af-11ea-b3de-0242ac130004";
@@ -32,7 +33,7 @@ public class JooqIntegrationTest {
     private DSLContext dsl;
 
     @Test
-    public void givenValUUIDData_whenInserting_thenSucceed() {
+    void givenValUUIDData_whenInserting_thenSucceed() {
         String authorUuid = UUID.randomUUID().toString();
         dsl.insertInto(AUTHOR)
                 .set(AUTHOR.UUID, authorUuid)
@@ -65,19 +66,19 @@ public class JooqIntegrationTest {
         Assert.assertEquals(Integer.valueOf(1), result.getValue(2, DSL.count()));
     }
 
-    @Test(expected = DataAccessException.class)
-    public void givenInvalUUIDData_whenInserting_thenFail() {
+    @Test
+    void givenInvalUUIDData_whenInserting_thenFail() {
 
         String unknownBookUuid = UUID.randomUUID().toString();
 
-        dsl.insertInto(AUTHOR_BOOK)
+        Assertions.assertThrows(DataAccessException.class, () -> dsl.insertInto(AUTHOR_BOOK)
                 .set(AUTHOR_BOOK.AUTHOR_UUID, AUTHOR_BERT_BATES_UUID)
                 .set(AUTHOR_BOOK.BOOK_UUID, unknownBookUuid)
-                .execute();
+                .execute());
     }
 
     @Test
-    public void givenValUUIDData_whenUpdating_thenSucceed() {
+    void givenValUUIDData_whenUpdating_thenSucceed() {
         dsl.update(AUTHOR)
                 .set(AUTHOR.LAST_NAME, "Baeldung")
                 .where(AUTHOR.UUID.equal(AUTHOR_BRYAN_BASHAM_UUID))
@@ -106,7 +107,7 @@ public class JooqIntegrationTest {
     }
 
     @Test
-    public void givenValUUIDData_whenDeleting_thenSucceed() {
+    void givenValUUIDData_whenDeleting_thenSucceed() {
         dsl.delete(AUTHOR)
                 .where(AUTHOR.UUID.eq(AUTHOR_BRYAN_BASHAM_UUID))
                 .execute();
@@ -117,10 +118,10 @@ public class JooqIntegrationTest {
         Assert.assertEquals(2, result.size());
     }
 
-    @Test(expected = DataAccessException.class)
-    public void givenInvalUUIDData_whenDeleting_thenFail() {
-        dsl.delete(BOOK)
+    @Test
+    void givenInvalUUIDData_whenDeleting_thenFail() {
+        Assertions.assertThrows(DataAccessException.class, () -> dsl.delete(BOOK)
                 .where(BOOK.UUID.eq(BOOK_HEAD_FIRST_JAVA_UUID))
-                .execute();
+                .execute());
     }
 }
