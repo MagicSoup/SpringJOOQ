@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:~/librairy;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE;DATABASE_TO_UPPER=false;
+    url: jdbc:h2:mem:librairy_test_gen;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE;DATABASE_TO_UPPER=false;
     username: sa
     password:
     driverClassName: org.h2.Driver
@@ -10,5 +10,5 @@ spring:
     url: ${spring.datasource.url}INIT=RUNSCRIPT FROM 'classpath:db/init/init.sql';
     user: ${spring.datasource.username}
     password: ${spring.datasource.password}
-    schemas: librairy
+    schemas: PUBLIC
     locations: classpath:db/migration, classpath:db/specific/${spring.jooq.sql-dialect}
