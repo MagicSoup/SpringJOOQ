@@ -39,6 +39,8 @@
             **/*Response.java,
             **/*Exception.java,
             **/*Configuration.java,
+            **/ch/qiminfo/librairy/batch/config/**/*,
+            **/ch/qiminfo/librairy/config/**/*,
             **/ch/qiminfo/librairy/db/**/*,
             **/ch/qiminfo/librairy/exception/**/*,
             **/ch/qiminfo/librairy/LibrairyApplication.java
