@@ -1,4 +1,4 @@
-package ch.qiminfo.librairy.controller.handler;
+package ch.qiminfo.librairy.exception.handler;
 
 import ch.qiminfo.librairy.exception.AuthorNotFoundException;
 import ch.qiminfo.librairy.exception.BookNotFoundException;

@@ -40,6 +40,7 @@
             **/*Exception.java,
             **/*Configuration.java,
             **/ch/qiminfo/librairy/db/**/*,
+            **/ch/qiminfo/librairy/exception/**/*,
             **/ch/qiminfo/librairy/LibrairyApplication.java
         </code.coverage.exclusions>
         <aggregate.report.dir>librairy-test/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
