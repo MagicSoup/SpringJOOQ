@@ -2,7 +2,7 @@ package ch.qiminfo.librairy.das;
 
 import ch.qiminfo.librairy.bean.BookBean;
 import ch.qiminfo.librairy.das.request.BookRequest;
-import org.assertj.core.api.Assertions;
+import ch.qiminfo.librairy.exception.BookNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @EnableConfigurationProperties
@@ -29,25 +29,24 @@ class BookDASImplTest {
 
     @Test
     void get_existing_book() {
-        Optional<BookBean> book = this.bookDAS.getByUuid(BOOK_SERVLET_UUID);
-        assertThat(book).isPresent();
+        BookBean book = this.bookDAS.getByUuid(BOOK_SERVLET_UUID);
+        assertThat(book).isNotNull();
     }
 
     @Test
-    void get_unknown_book() {
-        Optional<BookBean> book = this.bookDAS.getByUuid(BOOK_UNKNOWN_UUID);
-        assertThat(book).isEmpty();
+    void get_unknown_book_must_throw_book_not_found_exception() {
+        assertThrows(BookNotFoundException.class, () -> this.bookDAS.getByUuid(BOOK_UNKNOWN_UUID));
     }
 
     @Test
     void search_without_filter() {
         List<BookBean> books = this.bookDAS.search(BookRequest.builder().build());
-        Assertions.assertThat(books).hasSize(3);
+        assertThat(books).hasSize(3);
     }
 
     @Test
     void search_by_author_uuid() {
         List<BookBean> books = this.bookDAS.search(BookRequest.builder().authorUuid(BOOK_AUTHOR_BERT_BATES_UUID).build());
-        Assertions.assertThat(books).hasSize(1);
+        assertThat(books).hasSize(1);
     }
 }

@@ -58,10 +58,11 @@
                                 <exclude>ch/qiminfo/librairy/db/tables/records/**/*</exclude>
                                 <exclude>ch/qiminfo/librairy/bean/**/*</exclude>
                                 <exclude>ch/qiminfo/librairy/das/request/**/*</exclude>
-                                <exclude>ch/qiminfo/librairy/exception/**/*</exclude>
                                 <!-- batch -->
                                 <exclude>ch/qiminfo/librairy/batch/config/**/*</exclude>
                                 <exclude>ch/qiminfo/librairy/batch/processor/bean/**/*</exclude>
+                                <!--  daemon-->
+                                <exclude>ch/qiminfo/librairy/LibrairyApplication.class</exclude>
                             </excludes>
                         </configuration>
                     </execution>

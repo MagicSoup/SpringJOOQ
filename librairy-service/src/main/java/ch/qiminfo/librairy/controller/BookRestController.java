@@ -22,11 +22,7 @@ public class BookRestController {
 
     @GetMapping("/{uuid}")
     public BookBean get(@PathVariable(value = "uuid") String uuid) {
-        Optional<BookBean> bookByUuid = this.bookDAS.getByUuid(uuid);
-        if (!bookByUuid.isPresent()) {
-            throw new BookNotFoundException(uuid);
-        }
-        return bookByUuid.get();
+        return this.bookDAS.getByUuid(uuid);
     }
 
     @GetMapping("/author/{uuid}")

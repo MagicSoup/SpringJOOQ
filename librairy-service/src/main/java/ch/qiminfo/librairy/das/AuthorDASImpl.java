@@ -2,6 +2,7 @@ package ch.qiminfo.librairy.das;
 
 import ch.qiminfo.librairy.bean.AuthorBean;
 import ch.qiminfo.librairy.db.tables.records.AuthorRecord;
+import ch.qiminfo.librairy.exception.AuthorNotFoundException;
 import ch.qiminfo.librairy.mapper.AuthorMapper;
 import org.jooq.DSLContext;
 import org.jooq.Result;
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static ch.qiminfo.librairy.db.tables.Author.AUTHOR;
@@ -37,9 +37,12 @@ public class AuthorDASImpl implements AuthorDAS {
     }
 
     @Override
-    public Optional<AuthorBean> getByUuid(String uuid) {
+    public AuthorBean getByUuid(String uuid) {
         AuthorRecord record = this.dsl.selectFrom(AUTHOR).where(AUTHOR.UUID.eq(uuid)).fetchOne();
-        return record != null ? Optional.of(this.authorMapper.map(record)) : Optional.empty();
+        if (record == null) {
+            throw new AuthorNotFoundException(uuid);
+        }
+        return this.authorMapper.map(record);
     }
 
     @Override

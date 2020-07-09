@@ -4,6 +4,7 @@ import ch.qiminfo.librairy.bean.AuthorBean;
 import ch.qiminfo.librairy.bean.BookBean;
 import ch.qiminfo.librairy.das.BookDAS;
 import ch.qiminfo.librairy.das.request.BookRequest;
+import ch.qiminfo.librairy.exception.BookNotFoundException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
@@ -19,12 +20,12 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -52,7 +53,7 @@ class BookRestControllerTest {
         String uuid = UUID.randomUUID().toString();
         BookBean bean = getBook(uuid);
 
-        when(this.bookDAS.getByUuid(eq(uuid))).thenReturn(Optional.of(bean));
+        when(this.bookDAS.getByUuid(eq(uuid))).thenReturn(bean);
 
         MockHttpServletRequestBuilder requestBuilder = get(API_BASE_URI + uuid);
         ResultActions perform = this.mockMvc.perform(requestBuilder);
@@ -72,7 +73,7 @@ class BookRestControllerTest {
 
         String uuid = UUID.randomUUID().toString();
 
-        when(this.bookDAS.getByUuid(eq(uuid))).thenReturn(Optional.empty());
+        doThrow(new BookNotFoundException(uuid)).when(this.bookDAS).getByUuid(eq(uuid));
 
         MockHttpServletRequestBuilder requestBuilder = get(API_BASE_URI + uuid);
         ResultActions perform = this.mockMvc.perform(requestBuilder);

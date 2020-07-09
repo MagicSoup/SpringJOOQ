@@ -4,6 +4,7 @@ import ch.qiminfo.librairy.bean.BookBean;
 import ch.qiminfo.librairy.das.request.BookRequest;
 import ch.qiminfo.librairy.db.tables.records.AuthorRecord;
 import ch.qiminfo.librairy.db.tables.records.BookRecord;
+import ch.qiminfo.librairy.exception.BookNotFoundException;
 import ch.qiminfo.librairy.mapper.BookMapper;
 import org.jooq.Record;
 import org.jooq.*;
@@ -35,9 +36,12 @@ public class BookDASImpl implements BookDAS {
     }
 
     @Override
-    public Optional<BookBean> getByUuid(String uuid) {
+    public BookBean getByUuid(String uuid) {
         BookRecord record = this.dsl.selectFrom(BOOK).where(BOOK.UUID.eq(uuid)).fetchOne();
-        return record != null ? Optional.of(this.bookMapper.map(record)) : Optional.empty();
+        if (record == null) {
+            throw new BookNotFoundException(uuid);
+        }
+        return this.bookMapper.map(record);
     }
 
     @Override

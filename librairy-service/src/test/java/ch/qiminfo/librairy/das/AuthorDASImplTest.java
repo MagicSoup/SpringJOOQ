@@ -1,6 +1,7 @@
 package ch.qiminfo.librairy.das;
 
 import ch.qiminfo.librairy.bean.AuthorBean;
+import ch.qiminfo.librairy.exception.AuthorNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -24,14 +25,13 @@ class AuthorDASImplTest {
 
     @Test
     void get_existing_author() {
-        Optional<AuthorBean> authorBertBates = this.authorDAS.getByUuid(AUTHOR_BERT_BATES_UUID);
-        assertThat(authorBertBates).isPresent();
+        AuthorBean authorBertBates = this.authorDAS.getByUuid(AUTHOR_BERT_BATES_UUID);
+        assertThat(authorBertBates).isNotNull();
     }
 
     @Test
-    void get_unknown_author() {
-        Optional<AuthorBean> authorBertBates = this.authorDAS.getByUuid(AUTHOR_UNKNOWN_UUID);
-        assertThat(authorBertBates).isEmpty();
+    void get_unknown_author_must_throw_author_not_found_exception() {
+        assertThrows(AuthorNotFoundException.class, () -> this.authorDAS.getByUuid(AUTHOR_UNKNOWN_UUID));
     }
 
     @Test
@@ -41,13 +41,13 @@ class AuthorDASImplTest {
     }
 
     @Test
-    void author_exist(){
+    void author_exist() {
         boolean doesExist = this.authorDAS.existByExternalUuid("0");
         assertThat(doesExist).isTrue();
     }
 
     @Test
-    void author_do_not_exist(){
+    void author_do_not_exist() {
         boolean doesExist = this.authorDAS.existByExternalUuid("1");
         assertThat(doesExist).isFalse();
     }
