@@ -1,12 +1,11 @@
 package ch.qiminfo.librairy.mapper;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import ch.qiminfo.librairy.bean.AuthorBean;
 import ch.qiminfo.librairy.db.tables.records.AuthorRecord;
-import org.junit.jupiter.api.Test;
-
 import java.util.UUID;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
 class AuthorMapperTest {
 

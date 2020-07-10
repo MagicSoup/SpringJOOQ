@@ -1,8 +1,18 @@
 package ch.qiminfo.librairy.das;
 
+import static ch.qiminfo.librairy.db.tables.Author.AUTHOR;
+import static ch.qiminfo.librairy.db.tables.AuthorBook.AUTHOR_BOOK;
+import static ch.qiminfo.librairy.db.tables.Book.BOOK;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import ch.qiminfo.librairy.db.tables.records.AuthorBookRecord;
 import ch.qiminfo.librairy.db.tables.records.BookRecord;
-import org.jooq.*;
+import java.util.UUID;
+import org.jooq.DSLContext;
+import org.jooq.DeleteConditionStep;
+import org.jooq.InsertSetMoreStep;
+import org.jooq.Record3;
+import org.jooq.Result;
 import org.jooq.impl.DSL;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -11,13 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jooq.JooqTest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.UUID;
-
-import static ch.qiminfo.librairy.db.tables.Author.AUTHOR;
-import static ch.qiminfo.librairy.db.tables.AuthorBook.AUTHOR_BOOK;
-import static ch.qiminfo.librairy.db.tables.Book.BOOK;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @JooqTest
 @RunWith(SpringRunner.class)

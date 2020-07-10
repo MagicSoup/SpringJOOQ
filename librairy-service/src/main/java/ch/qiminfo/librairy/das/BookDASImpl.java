@@ -1,27 +1,32 @@
 package ch.qiminfo.librairy.das;
 
+import static ch.qiminfo.librairy.db.tables.Author.AUTHOR;
+import static ch.qiminfo.librairy.db.tables.AuthorBook.AUTHOR_BOOK;
+import static ch.qiminfo.librairy.db.tables.Book.BOOK;
+import static java.util.Objects.requireNonNull;
+
 import ch.qiminfo.librairy.bean.BookBean;
 import ch.qiminfo.librairy.das.request.BookRequest;
 import ch.qiminfo.librairy.db.tables.records.AuthorRecord;
 import ch.qiminfo.librairy.db.tables.records.BookRecord;
 import ch.qiminfo.librairy.exception.BookNotFoundException;
 import ch.qiminfo.librairy.mapper.BookMapper;
-import org.jooq.Record;
-import org.jooq.*;
-import org.jooq.impl.DSL;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.jooq.DSLContext;
+import org.jooq.Record;
+import org.jooq.Result;
+import org.jooq.SelectConditionStep;
+import org.jooq.SelectSeekStep2;
+import org.jooq.impl.DSL;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import static ch.qiminfo.librairy.db.tables.Author.AUTHOR;
-import static ch.qiminfo.librairy.db.tables.AuthorBook.AUTHOR_BOOK;
-import static ch.qiminfo.librairy.db.tables.Book.BOOK;
-import static java.util.Objects.requireNonNull;
-
+/**
+ * The type Book das.
+ */
 @Repository
 public class BookDASImpl implements BookDAS {
 
@@ -29,6 +34,12 @@ public class BookDASImpl implements BookDAS {
 
     private final BookMapper bookMapper;
 
+    /**
+     * Instantiates a new Book das.
+     *
+     * @param dsl        the dsl
+     * @param bookMapper the book mapper
+     */
     @Autowired
     public BookDASImpl(DSLContext dsl, BookMapper bookMapper) {
         this.dsl = requireNonNull(dsl);

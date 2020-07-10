@@ -1,10 +1,16 @@
 package ch.qiminfo.librairy.mapper;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+
 import ch.qiminfo.librairy.bean.AuthorBean;
 import ch.qiminfo.librairy.bean.BookBean;
 import ch.qiminfo.librairy.db.tables.records.AuthorRecord;
 import ch.qiminfo.librairy.db.tables.records.BookRecord;
 import com.google.common.collect.Lists;
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
@@ -14,22 +20,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.UUID;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-
 @ExtendWith(MockitoExtension.class)
 @RunWith(JUnitPlatform.class)
 class BookMapperTest {
 
-    @InjectMocks
-    private BookMapper bookMapper;
-
     @Mock
     AuthorMapper authorMapper;
+    @InjectMocks
+    private BookMapper bookMapper;
 
     private AuthorRecord getAuthorRecord() {
         AuthorRecord record = new AuthorRecord();

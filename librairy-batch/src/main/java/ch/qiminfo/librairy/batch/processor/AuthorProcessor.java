@@ -1,16 +1,18 @@
 package ch.qiminfo.librairy.batch.processor;
 
+import static org.springframework.util.StringUtils.capitalize;
+
 import ch.qiminfo.librairy.batch.processor.bean.AuthorBean;
 import ch.qiminfo.librairy.batch.processor.bean.AuthorCsvBean;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
-import static org.springframework.util.StringUtils.capitalize;
-
+/**
+ * The type Author processor.
+ */
 @Component
 public class AuthorProcessor implements ItemProcessor<AuthorCsvBean, AuthorBean> {
 

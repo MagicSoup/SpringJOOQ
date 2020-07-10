@@ -9,6 +9,9 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * The type Filter author processor.
+ */
 @Component
 public class FilterAuthorProcessor implements ItemProcessor<AuthorBean, AuthorBean> {
 
@@ -16,6 +19,11 @@ public class FilterAuthorProcessor implements ItemProcessor<AuthorBean, AuthorBe
 
     private final AuthorDAS authorDAS;
 
+    /**
+     * Instantiates a new Filter author processor.
+     *
+     * @param authorDAS the author das
+     */
     @Autowired
     public FilterAuthorProcessor(AuthorDAS authorDAS) {
         this.authorDAS = authorDAS;

@@ -1,8 +1,16 @@
 package ch.qiminfo.librairy.batch.processor;
 
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+
 import ch.qiminfo.librairy.batch.processor.bean.AuthorBean;
 import ch.qiminfo.librairy.das.AuthorDAS;
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
@@ -11,21 +19,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.UUID;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
-
 @ExtendWith(MockitoExtension.class)
 @RunWith(JUnitPlatform.class)
 class FilterAuthorProcessorTest {
 
-    @InjectMocks
-    private FilterAuthorProcessor filterAuthorProcessor;
-
     @Mock
     AuthorDAS authorDAS;
+    @InjectMocks
+    private FilterAuthorProcessor filterAuthorProcessor;
 
     private AuthorBean getAuthorBean(String externalUuid) {
         return new AuthorBean(UUID.randomUUID().toString(), "Firstname", "LASTNAME", externalUuid);
