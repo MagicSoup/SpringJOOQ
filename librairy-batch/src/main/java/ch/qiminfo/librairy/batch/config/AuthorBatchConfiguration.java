@@ -39,7 +39,7 @@ import org.springframework.util.FileCopyUtils;
  */
 @Configuration
 @EnableBatchProcessing
-public class BatchConfiguration {
+public class AuthorBatchConfiguration {
 
     @Value("classpath:sql/insert-into-author.sql")
     private Resource insertAuthorSQL;

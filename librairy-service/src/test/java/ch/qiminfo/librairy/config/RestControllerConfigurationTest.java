@@ -1,4 +1,4 @@
-package ch.qiminfo.librairy;
+package ch.qiminfo.librairy.config;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LibrairyServiceApplicationTestLoadingContext {
+class RestControllerConfigurationTest {
 
     @Autowired
     private ObjectMapper objectMapper;
