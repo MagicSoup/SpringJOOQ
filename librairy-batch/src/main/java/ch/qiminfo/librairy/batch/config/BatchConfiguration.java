@@ -1,10 +1,17 @@
 package ch.qiminfo.librairy.batch.config;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import ch.qiminfo.librairy.batch.processor.AuthorProcessor;
 import ch.qiminfo.librairy.batch.processor.FilterAuthorProcessor;
 import ch.qiminfo.librairy.batch.processor.bean.AuthorBean;
 import ch.qiminfo.librairy.batch.processor.bean.AuthorCsvBean;
 import com.google.common.collect.Lists;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UncheckedIOException;
+import javax.sql.DataSource;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -27,14 +34,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.util.FileCopyUtils;
 
-import javax.sql.DataSource;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UncheckedIOException;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
-
+/**
+ * The type Batch configuration.
+ */
 @Configuration
 @EnableBatchProcessing
 public class BatchConfiguration {
@@ -42,6 +44,19 @@ public class BatchConfiguration {
     @Value("classpath:sql/insert-into-author.sql")
     private Resource insertAuthorSQL;
 
+    private static String asString(Resource resource) {
+        try (Reader reader = new InputStreamReader(resource.getInputStream(), UTF_8)) {
+            return FileCopyUtils.copyToString(reader);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    /**
+     * Reader flat file item reader.
+     *
+     * @return the flat file item reader
+     */
     @Bean
     public FlatFileItemReader<AuthorCsvBean> reader() {
         BeanWrapperFieldSetMapper<AuthorCsvBean> authorCsvBeanWrapperFieldSetMapper = new BeanWrapperFieldSetMapper<>();
@@ -55,6 +70,13 @@ public class BatchConfiguration {
                 .build();
     }
 
+    /**
+     * Composite author processor item processor.
+     *
+     * @param authorProcessor       the author processor
+     * @param filterAuthorProcessor the filter author processor
+     * @return the item processor
+     */
     @Bean
     public ItemProcessor<AuthorCsvBean, AuthorBean> compositeAuthorProcessor(AuthorProcessor authorProcessor,
                                                                              FilterAuthorProcessor filterAuthorProcessor) {
@@ -63,6 +85,12 @@ public class BatchConfiguration {
         return processor;
     }
 
+    /**
+     * Writer jdbc batch item writer.
+     *
+     * @param dataSource the data source
+     * @return the jdbc batch item writer
+     */
     @Bean
     public JdbcBatchItemWriter<AuthorBean> writer(DataSource dataSource) {
         return new JdbcBatchItemWriterBuilder<AuthorBean>()
@@ -72,6 +100,14 @@ public class BatchConfiguration {
                 .build();
     }
 
+    /**
+     * Step 1 step.
+     *
+     * @param stepBuilderFactory       the step builder factory
+     * @param compositeAuthorProcessor the composite author processor
+     * @param writer                   the writer
+     * @return the step
+     */
     @Bean
     public Step step1(StepBuilderFactory stepBuilderFactory,
                       ItemProcessor<AuthorCsvBean, AuthorBean> compositeAuthorProcessor,
@@ -84,6 +120,14 @@ public class BatchConfiguration {
                 .build();
     }
 
+    /**
+     * Import author job job.
+     *
+     * @param jobBuilderFactory the job builder factory
+     * @param listener          the listener
+     * @param step1             the step 1
+     * @return the job
+     */
     @Bean
     public Job importAuthorJob(JobBuilderFactory jobBuilderFactory,
                                JobCompletionNotificationListener listener,
@@ -94,13 +138,5 @@ public class BatchConfiguration {
                 .flow(step1)
                 .end()
                 .build();
-    }
-
-    private static String asString(Resource resource) {
-        try (Reader reader = new InputStreamReader(resource.getInputStream(), UTF_8)) {
-            return FileCopyUtils.copyToString(reader);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
     }
 }

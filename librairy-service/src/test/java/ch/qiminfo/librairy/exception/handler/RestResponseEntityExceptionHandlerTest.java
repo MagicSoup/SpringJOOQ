@@ -1,5 +1,12 @@
 package ch.qiminfo.librairy.exception.handler;
 
+import static ch.qiminfo.librairy.exception.handler.RestResponseEntityExceptionHandler.CONFLICT_MESSAGE_ERROR;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.doThrow;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import ch.qiminfo.librairy.controller.AuthorRestController;
 import ch.qiminfo.librairy.das.AuthorDAS;
 import org.junit.jupiter.api.Test;
@@ -10,13 +17,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-
-import static ch.qiminfo.librairy.exception.handler.RestResponseEntityExceptionHandler.CONFLICT_MESSAGE_ERROR;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.doThrow;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AuthorRestController.class)
 class RestResponseEntityExceptionHandlerTest {

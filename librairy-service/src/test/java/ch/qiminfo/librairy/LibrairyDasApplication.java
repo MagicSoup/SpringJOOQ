@@ -1,9 +1,9 @@
 package ch.qiminfo.librairy;
 
+import static org.springframework.boot.SpringApplication.run;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import static org.springframework.boot.SpringApplication.run;
 
 /**
  * Needed for annotated @SpringBootTest classes.

@@ -1,19 +1,18 @@
 package ch.qiminfo.librairy.das;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import ch.qiminfo.librairy.bean.BookBean;
 import ch.qiminfo.librairy.das.request.BookRequest;
 import ch.qiminfo.librairy.exception.BookNotFoundException;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @EnableConfigurationProperties

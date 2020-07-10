@@ -1,20 +1,22 @@
 package ch.qiminfo.librairy.das;
 
+import static ch.qiminfo.librairy.db.tables.Author.AUTHOR;
+import static java.util.Objects.requireNonNull;
+
 import ch.qiminfo.librairy.bean.AuthorBean;
 import ch.qiminfo.librairy.db.tables.records.AuthorRecord;
 import ch.qiminfo.librairy.exception.AuthorNotFoundException;
 import ch.qiminfo.librairy.mapper.AuthorMapper;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.jooq.DSLContext;
 import org.jooq.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static ch.qiminfo.librairy.db.tables.Author.AUTHOR;
-import static java.util.Objects.requireNonNull;
-
+/**
+ * The type Author das.
+ */
 @Repository
 public class AuthorDASImpl implements AuthorDAS {
 
@@ -22,6 +24,12 @@ public class AuthorDASImpl implements AuthorDAS {
 
     private final AuthorMapper authorMapper;
 
+    /**
+     * Instantiates a new Author das.
+     *
+     * @param dsl          the dsl
+     * @param authorMapper the author mapper
+     */
     @Autowired
     public AuthorDASImpl(DSLContext dsl, AuthorMapper authorMapper) {
         this.dsl = requireNonNull(dsl);

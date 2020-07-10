@@ -1,13 +1,12 @@
 package ch.qiminfo.librairy.batch.processor;
 
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import ch.qiminfo.librairy.batch.processor.bean.AuthorBean;
 import ch.qiminfo.librairy.batch.processor.bean.AuthorCsvBean;
-import org.junit.jupiter.api.Test;
-
 import java.util.UUID;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
 class AuthorProcessorTest {
 

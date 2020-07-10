@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+/**
+ * The type Job completion notification listener.
+ */
 @Component
 public class JobCompletionNotificationListener extends JobExecutionListenerSupport {
 
@@ -17,6 +20,11 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
 
     private final JdbcTemplate jdbcTemplate;
 
+    /**
+     * Instantiates a new Job completion notification listener.
+     *
+     * @param jdbcTemplate the jdbc template
+     */
     @Autowired
     public JobCompletionNotificationListener(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
