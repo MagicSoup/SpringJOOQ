@@ -10,10 +10,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @SpringBootApplication
 @EnableTransactionManagement
-public class LibrairyDasApplication {
+public class LibrairyServiceApplication {
 
     public static void main(String[] args) {
-        run(LibrairyDasApplication.class, args);
+        run(LibrairyServiceApplication.class, args);
     }
 
 }
